@@ -1,4 +1,3 @@
-// --- ３. メイン実行関数 ---  
 let __SECTION_COUNTER = 0; // 章番号カウンタ（ゴースト数字用）
 
 function generatePresentation() {  
@@ -241,7 +240,7 @@ function createTimelineSlide(slide, data, layout, pageNum) {
   line.getFill().setSolidFill(Theme.getColor('faint'));  
   line.getBorder().setTransparent();
 
-  const dotR = layout.pxToPt(8);  
+  const dotR = layout.pxToPt(12);  
   const gap = (rightX - leftX) / Math.max(1, (milestones.length - 1));
 
   milestones.forEach((m, i) => {  
@@ -249,14 +248,14 @@ function createTimelineSlide(slide, data, layout, pageNum) {
     const dot = slide.insertShape(SlidesApp.ShapeType.ELLIPSE, x, baseY - dotR / 2, dotR, dotR);  
     const state = (m.state || 'todo').toLowerCase();  
     if (state === 'done') { dot.getFill().setSolidFill(Theme.getColor('success')); dot.getBorder().setTransparent(); }  
-    else if (state === 'next') { dot.getFill().setSolidFill(Theme.getColor('background')); dot.getBorder().getLineFill().setSolidFill(Theme.getColor('warning')); dot.getBorder().setWeight(2); }  
-    else { dot.getFill().setSolidFill(Theme.getColor('background')); dot.getBorder().getLineFill().setSolidFill(Theme.getColor('textSecondary')); dot.getBorder().setWeight(1); }
+    else if (state === 'next') { dot.getFill().setSolidFill(Theme.getColor('background')); dot.getBorder().getLineFill().setSolidFill(Theme.getColor('warning')); dot.getBorder().setWeight(3); }  
+    else { dot.getFill().setSolidFill(Theme.getColor('background')); dot.getBorder().getLineFill().setSolidFill(Theme.getColor('textSecondary')); dot.getBorder().setWeight(2); }
 
-    const t = slide.insertShape(SlidesApp.ShapeType.TEXT_BOX, x - layout.pxToPt(40), baseY - layout.pxToPt(40), layout.pxToPt(90), layout.pxToPt(20));  
+    const t = slide.insertShape(SlidesApp.ShapeType.TEXT_BOX, x - layout.pxToPt(60), baseY - layout.pxToPt(55), layout.pxToPt(120), layout.pxToPt(25));  
     t.getText().setText(String(m.label || ''));  
     applyTextStyle(t.getText(), { size: Theme.getFontSize('small'), bold: true, align: SlidesApp.ParagraphAlignment.CENTER });
 
-    const d = slide.insertShape(SlidesApp.ShapeType.TEXT_BOX, x - layout.pxToPt(40), baseY + layout.pxToPt(8), layout.pxToPt(90), layout.pxToPt(18));  
+    const d = slide.insertShape(SlidesApp.ShapeType.TEXT_BOX, x - layout.pxToPt(60), baseY + layout.pxToPt(20), layout.pxToPt(120), layout.pxToPt(18));  
     d.getText().setText(String(m.date || ''));  
     applyTextStyle(d.getText(), { size: Theme.getFontSize('small'), color: Theme.getColor('textSecondary'), align: SlidesApp.ParagraphAlignment.CENTER });  
   });

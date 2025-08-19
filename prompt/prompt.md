@@ -24,7 +24,8 @@
      * \[\[重要語\]\] → **太字＋Googleブルー**（\#4285F4）  
    * **画像URLの抽出**: 入力テキスト内の \!\[\](...png|.jpg|.jpeg|.gif|.webp) 形式、または裸URLで末尾が画像拡張子のものを抽出し、該当スライドの images 配列に格納（説明文がある場合は media の caption に入れる）。  
    * **スピーカーノート生成**: 各スライドの内容に基づき、発表者が話すべき内容の**ドラフトを生成**し、notesプロパティに格納する。  
-5. **【ステップ5: 自己検証と反復修正】**  
+5. **【ステップ5: 自己検証と反復修正】**  
+   * **重要**: processのstepsとdiagramのlanes[].itemsは必ず文字列配列（string[]）。オブジェクト配列は絶対禁止  
    * **チェックリスト**:  
      * 文字数・行数・要素数の上限遵守（各パターンの規定に従うこと）  
      * 箇条書き要素に**改行（\\n）を含めない**  
@@ -52,9 +53,9 @@
 
 * **content（1カラム/2カラム＋画像＋小見出し）** { type: 'content', title: '...', subhead?: string, points?: string\[\], twoColumn?: boolean, columns?: \[string\[\], string\[\]\], images?: (string | { url: string, caption?: string })\[\], notes?: '...' }  
 * **compare（対比）** { type: 'compare', title: '...', subhead?: string, leftTitle: '...', rightTitle: '...', leftItems: string\[\], rightItems: string\[\], images?: string\[\], notes?: '...' }  
-* **process（手順・工程）** { type: 'process', title: '...', subhead?: string, steps: string\[\], images?: string\[\], notes?: '...' }  
+* **process（手順・工程）** { type: 'process', title: '...', subhead?: string, steps: string\[\] (注：stepsは文字列の配列であり、オブジェクト配列ではない), images?: string\[\], notes?: '...' }  
 * **timeline（時系列）** { type: 'timeline', title: '...', subhead?: string, milestones: { label: string, date: string, state?: 'done'|'next'|'todo' }\[\], images?: string\[\], notes?: '...' }  
-* **diagram（レーン図）** { type: 'diagram', title: '...', subhead?: string, lanes: { title: string, items: string\[\] }\[\], images?: string\[\], notes?: '...' }  
+* **diagram（レーン図）** { type: 'diagram', title: '...', subhead?: string, lanes: { title: string, items: string\[\] }\[\] (注：lanes内のitemsは文字列の配列であり、オブジェクト配列ではない), images?: string\[\], notes?: '...' }  
 * **cards（カードグリッド）** { type: 'cards', title: '...', subhead?: string, columns?: 2|3, items: (string | { title: string, desc?: string })\[\], images?: string\[\], notes?: '...' }  
 * **table（表）** { type: 'table', title: '...', subhead?: string, headers: string\[\], rows: string\[\]\[\], notes?: '...' }  
 * **progress（進捗）** { type: 'progress', title: '...', subhead?: string, items: { label: string, percent: number }\[\], notes?: '...' }

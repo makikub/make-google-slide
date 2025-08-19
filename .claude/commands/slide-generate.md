@@ -55,9 +55,9 @@
 - **closing**: クロージング (notes)
 - **content**: 1-2カラム+画像 (title, subhead?, points?, twoColumn?, columns?, images?, notes)
 - **compare**: 対比 (title, subhead?, leftTitle, rightTitle, leftItems, rightItems, images?, notes)
-- **process**: 手順・工程 (title, subhead?, steps, images?, notes)
+- **process**: 手順・工程 (title, subhead?, steps: string[], images?, notes)
 - **timeline**: 時系列 (title, subhead?, milestones, images?, notes)
-- **diagram**: レーン図 (title, subhead?, lanes, images?, notes)
+- **diagram**: レーン図 (title, subhead?, lanes: {title: string, items: string[]}[], images?, notes)
 - **cards**: カードグリッド (title, subhead?, columns?, items, images?, notes)
 - **table**: 表 (title, subhead?, headers, rows, notes)
 - **progress**: 進捗 (title, subhead?, items, notes)
@@ -68,6 +68,14 @@
 - **強調記法**: **太字**, [[重要語]](太字+青色)
 - **画像**: PNG/JPEG/GIF/WebP, 50MB未満
 - **スピーカーノート**: 各スライドにnotesプロパティで発表原稿を付与
+
+### データ構造の重要な注意事項
+- **processスライド**: `steps`は文字列の配列（string[]）。オブジェクトの配列は使用不可
+  - ❌ 間違い: `steps: [{step: 1, title: "...", desc: "..."}]`
+  - ✅ 正しい: `steps: ["**ステップ1**: 説明文", "**ステップ2**: 説明文"]`
+- **diagramスライド**: `lanes[].items`は文字列の配列（string[]）。オブジェクトの配列は使用不可
+  - ❌ 間違い: `items: [{title: "...", desc: "..."}]`
+  - ✅ 正しい: `items: ["**項目1**: 説明文", "**項目2**: 説明文"]`
 
 ### 出力形式
 text-data.gsファイルの完全な内容を出力し、slideData配列のみを置換する。解説やコメントは一切含めない。

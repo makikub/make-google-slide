@@ -1,0 +1,57 @@
+# Google Slides Auto Generator プロジェクト設定
+
+このプロジェクトは、モジュラー設計によるGoogle Apps Script (GAS)スライド自動生成システムです。
+
+## 開発時の絶対ルール
+
+1. **編集対象**: `src/` ディレクトリ内のファイルのみ
+2. **編集禁止**: `out/google-slides-generator.gs` は自動生成
+3. **必須手順**: 変更後は `build.sh` でビルド実行
+4. **責任分離**: `src/slide.gs` は Theme API のみ使用、CONFIG 直接アクセス禁止
+
+## プロジェクト構造
+
+```
+src/
+├── first.gs        # 実行設定（スライドクリア、対象プレゼンテーション）
+├── style.gs        # デザイン設定（CONFIG オブジェクト：色、フォント、レイアウト）
+├── theme.gs        # テーマ抽象化API（セマンティックインターフェース）
+├── text-data.gs    # スライドデータ（slideData配列、カスタマイズ対象）
+└── slide.gs        # スライド生成ロジック（メイン実行関数）
+```
+
+## 主要ファイルとその役割
+
+- **src/text-data.gs**: スライドデータ（`slideData` 配列）
+- **src/style.gs**: デザイン設定（`CONFIG` オブジェクト）
+- **src/theme.gs**: セマンティックなテーマAPI
+- **src/slide.gs**: メイン実行ロジック
+- **src/first.gs**: 実行設定
+
+## 対応スライドタイプ（11種類）
+
+title, section, content, compare, process, timeline, diagram, cards, table, progress, closing
+
+## 開発ワークフロー
+
+### スライド内容変更
+1. `src/text-data.gs` の `slideData` 配列を編集
+2. `build.sh` 実行
+3. Google Apps Script でテスト
+
+### デザイン変更
+1. `src/style.gs` の `CONFIG` を編集
+2. 必要に応じて `src/theme.gs` のAPI調整
+3. ビルド＆テスト
+
+## ビルドプロセス
+
+`build.sh` でGAS用単一ファイル（`out/google-slides-generator.gs`）を生成します。
+**重要**: 生成された `google-slides-generator.gs` は自動生成のため直接編集禁止。
+
+## AIアシスタント指示
+
+- 常に日本語で応答する
+- ファイル編集時は必ず `src/` ディレクトリ内のファイルのみを対象とする
+- 変更後は `build.sh` の実行を推奨する
+- エラーが発生した場合は、ワークスペースルールを確認する
