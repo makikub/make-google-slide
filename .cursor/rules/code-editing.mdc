@@ -1,0 +1,36 @@
+---
+globs: *.gs,*.js
+---
+
+# Google Apps Script (GAS) コーディングガイドライン
+
+## 必須要件
+
+- **常に [src/](mdc:src/) ディレクトリ内のファイルを編集する**
+- **自動生成された `out/google-slides-generator.gs` は絶対に直接編集しない**
+- 変更後は必ず [build.sh](mdc:build.sh) でビルドしてテストする
+
+## モジュール依存関係の原則
+
+1. **[src/slide.gs](mdc:src/slide.gs)** は Theme API のみを使用、CONFIG に直接依存しない
+2. **[src/theme.gs](mdc:src/theme.gs)** が [src/style.gs](mdc:src/style.gs) の CONFIG と slide.gs の間の抽象化層
+3. **インターフェース**: `Theme.getColor()`, `Theme.getFontSize()`, `Theme.getLayout()` 等のセマンティックAPI
+
+## コーディングスタイル
+
+- **文字列エスケープ**: シングルクォート `'` は `\'` に、バックスラッシュ `\` は `\\` に
+- **改行コード**: LF (`\n`) を使用
+- **箇条書き**: 各要素に改行 (`\n`) を含めない
+- **文末**: 箇条書きの句点「。」禁止（体言止め推奨）
+
+## 新機能追加時の手順
+
+1. 該当するファイル（[src/style.gs](mdc:src/style.gs), [src/theme.gs](mdc:src/theme.gs), [src/slide.gs](mdc:src/slide.gs)）を編集
+2. [build.sh](mdc:build.sh) でビルド実行
+3. Google Apps Script エディタでテスト
+
+## 禁止事項
+
+- CONFIG オブジェクトへの直接アクセス（slide.gs から）
+- 生成ファイルの直接編集
+- ファイル間の循環依存の作成

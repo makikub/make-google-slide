@@ -1,0 +1,43 @@
+---
+description: プロンプト設計とAI連携に関するガイドライン
+---
+
+# プロンプト管理とAI連携ガイド
+
+## プロンプトファイル
+
+このプロジェクトには専用のプロンプトが用意されています：
+
+### メインプロンプト
+- **[prompt/prompt.md](mdc:prompt/prompt.md)**: テキストからslideData配列生成用の詳細プロンプト
+- **[prompt/style-update-prompt.md](mdc:prompt/style-update-prompt.md)**: PDFテンプレートからstyle.gs更新用プロンプト
+
+### レガシーファイル
+- **[before-prompt.md](mdc:before-prompt.md)**: 1000行以上の巨大プロンプト（正規化前）
+
+## AI連携パターン
+
+### 1. スライドデータ生成
+- **入力**: 非構造テキスト（議事録、記事、企画書、メモ等）
+- **プロンプト**: [prompt/prompt.md](mdc:prompt/prompt.md)
+- **出力**: [src/text-data.gs](mdc:src/text-data.gs) の `slideData` 配列
+- **制約**: slideData配列の更新のみ、他ファイル変更禁止
+
+### 2. デザイン設定更新
+- **入力**: PDFテンプレートファイル
+- **プロンプト**: [prompt/style-update-prompt.md](mdc:prompt/style-update-prompt.md)
+- **出力**: [src/style.gs](mdc:src/style.gs) の `CONFIG` オブジェクト
+- **制約**: CONFIG設定の更新のみ
+
+## プロンプト設計原則
+
+- **特化型プロンプト**: 単一責任に特化した設計
+- **厳格な制約**: 変更対象ファイルを明確に限定
+- **検証手順**: 自己検証と反復修正のステップを含む
+- **エラー回避**: GAS API制限と文字列エスケープを考慮
+
+## 使用時の注意事項
+
+- プロンプト使用時は対象ファイルのみを変更
+- 生成後は必ず [build.sh](mdc:build.sh) でビルドテスト実行
+- エラーログの確認とデバッグ作業を怠らない

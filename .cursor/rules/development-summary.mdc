@@ -1,0 +1,35 @@
+---
+alwaysApply: true
+---
+
+# 開発サマリー - 重要事項
+
+## 🚨 開発時の絶対ルール
+
+1. **編集対象**: `src/` ディレクトリ内のファイルのみ
+2. **編集禁止**: `out/google-slides-generator.gs` は自動生成
+3. **必須手順**: 変更後は [build.sh](mdc:build.sh) でビルド実行
+4. **責任分離**: [src/slide.gs](mdc:src/slide.gs) は Theme API のみ使用、CONFIG 直接アクセス禁止
+
+## 📁 主要ファイルとその役割
+
+- **[src/text-data.gs](mdc:src/text-data.gs)**: スライドデータ（`slideData` 配列）
+- **[src/style.gs](mdc:src/style.gs)**: デザイン設定（`CONFIG` オブジェクト）
+- **[src/theme.gs](mdc:src/theme.gs)**: セマンティックなテーマAPI
+- **[src/slide.gs](mdc:src/slide.gs)**: メイン実行ロジック
+- **[src/first.gs](mdc:src/first.gs)**: 実行設定
+
+## 🔧 よくある作業パターン
+
+### スライド内容変更
+1. [src/text-data.gs](mdc:src/text-data.gs) の `slideData` 配列を編集
+2. [build.sh](mdc:build.sh) 実行
+3. Google Apps Script でテスト
+
+### デザイン変更
+1. [src/style.gs](mdc:src/style.gs) の `CONFIG` を編集
+2. 必要に応じて [src/theme.gs](mdc:src/theme.gs) のAPI調整
+3. ビルド＆テスト
+
+## 🎯 対応スライドタイプ（11種類）
+title, section, content, compare, process, timeline, diagram, cards, table, progress, closing

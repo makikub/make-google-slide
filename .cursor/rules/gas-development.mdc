@@ -1,0 +1,49 @@
+---
+description: Google Apps Script開発に関する制約とベストプラクティス
+---
+
+# Google Apps Script 開発ガイド
+
+## GAS固有の制約
+
+### 実行時間制限
+- Apps Script 全体で約6分間の実行時間制限
+- 大量のスライド生成時は分割実行を検討
+
+### API制限
+- **画像制約**: 50MB未満・25MP以下の PNG/JPEG/GIF/WebP
+- **スライド上限**: 最大50枚
+- **テキストオーバーフロー**: [prompt/prompt.md](mdc:prompt/prompt.md) の上限値厳守
+
+## スライドデータ構造
+
+[src/text-data.gs](mdc:src/text-data.gs) の `slideData` 配列は以下の構造：
+
+```javascript
+const slideData = [
+  { type: 'title', title: '...', date: 'YYYY.MM.DD', notes: '...' },
+  { type: 'section', title: '...', sectionNo?: number, notes: '...' },
+  { type: 'content', title: '...', subhead?: string, points?: string[], notes: '...' },
+  // その他のスライドタイプ...
+];
+```
+
+## 対応スライドタイプ
+- **title**: タイトルスライド
+- **section**: 章扉（背景に大きな章番号）
+- **content**: 1/2カラム + 小見出し + 画像
+- **compare**: 左右対比ボックス
+- **process**: 手順・工程（番号付き）
+- **timeline**: 時系列マイルストーン
+- **diagram**: レーン図（Mermaid風）
+- **cards**: カードグリッド
+- **table**: 表形式
+- **progress**: 進捗バー
+- **closing**: クロージング
+
+## デバッグとテスト
+
+1. [build.sh](mdc:build.sh) でビルド
+2. `out/google-slides-generator.gs` をGoogle Apps Scriptエディタにコピー
+3. `generatePresentation()` 関数を実行
+4. エラーログは Apps Script エディタで確認

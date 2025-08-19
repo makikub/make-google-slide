@@ -1,0 +1,39 @@
+---
+alwaysApply: true
+---
+
+# Google Slides Auto Generator プロジェクト構造
+
+このプロジェクトは、モジュラー設計によるGoogle Apps Script (GAS)スライド自動生成システムです。
+
+## 核心アーキテクチャ
+
+メインエントリポイントは [src/slide.gs](mdc:src/slide.gs) で、以下の構造になっています：
+
+```
+src/
+├── first.gs        # 実行設定（スライドクリア、対象プレゼンテーション）
+├── style.gs        # デザイン設定（CONFIG オブジェクト：色、フォント、レイアウト）
+├── theme.gs        # テーマ抽象化API（セマンティックインターフェース）
+├── text-data.gs    # スライドデータ（slideData配列、カスタマイズ対象）
+└── slide.gs        # スライド生成ロジック（メイン実行関数）
+```
+
+## 責任分離の原則
+
+- **完全な責任分離**: [style.gs](mdc:src/style.gs) の変更時に [slide.gs](mdc:src/slide.gs) 修正不要
+- **Theme API**: [theme.gs](mdc:src/theme.gs) がセマンティックなカラー・フォント管理を提供
+- **モジュラー設計**: 個別ファイルでの部分カスタマイズ対応
+
+## ビルドプロセス
+
+[build.sh](mdc:build.sh) でGAS用単一ファイル（`out/google-slides-generator.gs`）を生成します。
+**重要**: 生成された `google-slides-generator.gs` は自動生成のため直接編集禁止。
+
+## 主要設定
+
+- **実行設定**: [src/first.gs](mdc:src/first.gs) の `SETTINGS` オブジェクト
+- **デザイン設定**: [src/style.gs](mdc:src/style.gs) の `CONFIG` オブジェクト
+- **スライドデータ**: [src/text-data.gs](mdc:src/text-data.gs) の `slideData` 配列
+
+スライド生成システムは9つのスライドタイプをサポート: title, section, content, compare, process, timeline, diagram, cards, table, progress, closing
