@@ -6,9 +6,13 @@
 set -e
 
 SOURCE_DIR="src"
-OUTPUT_FILE="google-slides-generator.gs"
+OUTPUT_DIR="out"
+OUTPUT_FILE="$OUTPUT_DIR/google-slides-generator.gs"
 
 echo "🔨 Google Apps Script統合ビルド開始..."
+
+# 出力ディレクトリ作成
+mkdir -p "$OUTPUT_DIR"
 
 # 出力ファイル初期化
 cat > "$OUTPUT_FILE" << 'EOF'
