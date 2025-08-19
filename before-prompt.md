@@ -241,8 +241,8 @@ arrow\_h\_px: 10, arrowGap\_px: 8  
 },
 
 LOGOS: {  
-header: '[https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google\\\_2015\\\_logo.svg/1024px-Google\\\_2015\\\_logo.svg.png](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google\\_2015\\_logo.svg/1024px-Google\\_2015\\_logo.svg.png)',  
-closing: '[https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google\\\_2015\\\_logo.svg/1024px-Google\\\_2015\\\_logo.svg.png](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google\\_2015\\_logo.svg/1024px-Google\\_2015\\_logo.svg.png)'  
+header: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1024px-Google_2015_logo.svg.png',  
+closing: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1024px-Google_2015_logo.svg.png'  
 },
 
 FOOTER\_TEXT: \`© ${new Date().getFullYear()} Your Organization\`  

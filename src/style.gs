@@ -1,17 +1,16 @@
 
-// \--- 2\. マスターデザイン設定 (Google Design Ver.) \---  
-const CONFIG \= {  
-BASE\_PX: { W: 960, H: 540 },
+// --- 2. マスターデザイン設定 (Google Design Ver.) ---  
+const CONFIG = {  
+BASE_PX: { W: 960, H: 540 },
 
 // レイアウトの基準となる不変のpx値  
-POS\_PX: {  
+POS_PX: {  
 titleSlide: {  
 logo:       { left: 55,  top: 105,  width: 135 },  
 title:      { left: 50,  top: 230, width: 800, height: 90 },  
 date:       { left: 50,  top: 340, width: 250, height: 40 },  
 },
 
-```
 // 共通ヘッダーを持つ各スライド  
 contentSlide: {  
   headerLogo:     { right: 20, top: 20, width: 75 },  
@@ -84,7 +83,6 @@ footer: {  
   rightPage: { right: 15, top: 505, width: 50,  height: 20 }  
 },  
 bottomBar: { left: 0, top: 534, width: 960, height: 6 }  
-```
 
 },
 
@@ -107,31 +105,31 @@ ghostNum: 180  
 }  
 },  
 COLORS: {  
-primary\_blue: '\#4285F4',  
-google\_red: '\#EA4335',  
-google\_yellow: '\#FBBC04',  
-google\_green: '\#34A853',  
-text\_primary: '\#333333',  
-background\_white: '\#FFFFFF',  
-background\_gray: '\#f8f9fa',  
-faint\_gray: '\#e8eaed',  
-lane\_title\_bg: '\#f5f5f3',  
-lane\_border: '\#dadce0',  
-card\_bg: '\#ffffff',  
-card\_border: '\#dadce0',  
-neutral\_gray: '\#9e9e9e',  
-ghost\_gray: '\#efefed'  
+primary_blue: '#4285F4',  
+google_red: '#EA4335',  
+google_yellow: '#FBBC04',  
+google_green: '#34A853',  
+text_primary: '#333333',  
+background_white: '#FFFFFF',  
+background_gray: '#f8f9fa',  
+faint_gray: '#e8eaed',  
+lane_title_bg: '#f5f5f3',  
+lane_border: '#dadce0',  
+card_bg: '#ffffff',  
+card_border: '#dadce0',  
+neutral_gray: '#9e9e9e',  
+ghost_gray: '#efefed'  
 },  
 DIAGRAM: {  
-laneGap\_px: 24, lanePad\_px: 10, laneTitle\_h\_px: 30,  
-cardGap\_px: 12, cardMin\_h\_px: 48, cardMax\_h\_px: 70,  
-arrow\_h\_px: 10, arrowGap\_px: 8  
+laneGap_px: 24, lanePad_px: 10, laneTitle_h_px: 30,  
+cardGap_px: 12, cardMin_h_px: 48, cardMax_h_px: 70,  
+arrow_h_px: 10, arrowGap_px: 8  
 },
 
 LOGOS: {  
-header: '[https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google\\\_2015\\\_logo.svg/1024px-Google\\\_2015\\\_logo.svg.png](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google\\_2015\\_logo.svg/1024px-Google\\_2015\\_logo.svg.png)',  
-closing: '[https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google\\\_2015\\\_logo.svg/1024px-Google\\\_2015\\\_logo.svg.png](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google\\_2015\\_logo.svg/1024px-Google\\_2015\\_logo.svg.png)'  
+header: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1024px-Google_2015_logo.svg.png',  
+closing: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1024px-Google_2015_logo.svg.png'  
 },
 
-FOOTER\_TEXT: \`© ${new Date().getFullYear()} Your Organization\`  
+FOOTER_TEXT: `© ${new Date().getFullYear()} Your Organization`  
 };

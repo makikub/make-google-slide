@@ -1,3 +1,285 @@
+/**
+ * @OnlyCurrentDoc
+ * このスクリプトは、Google風デザインテンプレートに基づきGoogleスライドを自動生成します。
+ * Version: 12.0 (Universal Google Design - Final)
+ * Author: Googleスライド自動生成マスター
+ * Prompt Design: まじん式プロンプト
+ * Description: 指定されたslideData配列を元に、Google風デザインに準拠したスライドを生成します。
+ * 
+ * 🏗️  このファイルは build.sh により自動生成されました
+ * 📁  編集は src/ ディレクトリ内の個別ファイルで行ってください
+ */
+
+// === 1. 実行設定 ===
+// --- 1. 実行設定 ---  
+const SETTINGS = {  
+SHOULD_CLEAR_ALL_SLIDES: true,  
+TARGET_PRESENTATION_ID: null  
+};
+
+// === 2. デザイン設定 ===
+
+// --- 2. マスターデザイン設定 (Google Design Ver.) ---  
+const CONFIG = {  
+BASE_PX: { W: 960, H: 540 },
+
+// レイアウトの基準となる不変のpx値  
+POS_PX: {  
+titleSlide: {  
+logo:       { left: 55,  top: 105,  width: 135 },  
+title:      { left: 50,  top: 230, width: 800, height: 90 },  
+date:       { left: 50,  top: 340, width: 250, height: 40 },  
+},
+
+// 共通ヘッダーを持つ各スライド  
+contentSlide: {  
+  headerLogo:     { right: 20, top: 20, width: 75 },  
+  title:          { left: 25, top: 60,  width: 830, height: 65 },  
+  titleUnderline: { left: 25, top: 128, width: 260, height: 4 },  
+  subhead:        { left: 25, top: 140, width: 830, height: 30 },  
+  body:           { left: 25, top: 172, width: 910, height: 303 },  
+  twoColLeft:     { left: 25,  top: 172, width: 440, height: 303 },  
+  twoColRight:    { left: 495, top: 172, width: 440, height: 303 }  
+},  
+compareSlide: {  
+  headerLogo:     { right: 20, top: 20, width: 75 },  
+  title:          { left: 25, top: 60,  width: 830, height: 65 },  
+  titleUnderline: { left: 25, top: 128, width: 260, height: 4 },  
+  subhead:        { left: 25, top: 140, width: 830, height: 30 },  
+  leftBox:        { left: 25,  top: 172, width: 430, height: 303 },  
+  rightBox:       { left: 505, top: 172, width: 430, height: 303 }  
+},  
+processSlide: {  
+  headerLogo:     { right: 20, top: 20, width: 75 },  
+  title:          { left: 25, top: 60,  width: 830, height: 65 },  
+  titleUnderline: { left: 25, top: 128, width: 260, height: 4 },  
+  subhead:        { left: 25, top: 140, width: 830, height: 30 },  
+  area:           { left: 25, top: 172, width: 910, height: 303 }  
+},  
+timelineSlide: {  
+  headerLogo:     { right: 20, top: 20, width: 75 },  
+  title:          { left: 25, top: 60,  width: 830, height: 65 },  
+  titleUnderline: { left: 25, top: 128, width: 260, height: 4 },  
+  subhead:        { left: 25, top: 140, width: 830, height: 30 },  
+  area:           { left: 25, top: 172, width: 910, height: 303 }  
+},  
+diagramSlide: {  
+  headerLogo:     { right: 20, top: 20, width: 75 },  
+  title:          { left: 25, top: 60,  width: 830, height: 65 },  
+  titleUnderline: { left: 25, top: 128, width: 260, height: 4 },  
+  subhead:        { left: 25, top: 140, width: 830, height: 30 },  
+  lanesArea:      { left: 25, top: 172, width: 910, height: 303 }  
+},  
+cardsSlide: {  
+  headerLogo:     { right: 20, top: 20, width: 75 },  
+  title:          { left: 25, top: 60,  width: 830, height: 65 },  
+  titleUnderline: { left: 25, top: 128, width: 260, height: 4 },  
+  subhead:        { left: 25, top: 140, width: 830, height: 30 },  
+  gridArea:       { left: 25, top: 172, width: 910, height: 303 }  
+},  
+tableSlide: {  
+  headerLogo:     { right: 20, top: 20, width: 75 },  
+  title:          { left: 25, top: 60,  width: 830, height: 65 },  
+  titleUnderline: { left: 25, top: 128, width: 260, height: 4 },  
+  subhead:        { left: 25, top: 140, width: 830, height: 30 },  
+  area:           { left: 25, top: 172, width: 910, height: 303 }  
+},  
+progressSlide: {  
+  headerLogo:     { right: 20, top: 20, width: 75 },  
+  title:          { left: 25, top: 60,  width: 830, height: 65 },  
+  titleUnderline: { left: 25, top: 128, width: 260, height: 4 },  
+  subhead:        { left: 25, top: 140, width: 830, height: 30 },  
+  area:           { left: 25, top: 172, width: 910, height: 303 }  
+},
+
+// 章扉（背景に大きなゴースト番号）  
+sectionSlide: {  
+  title:      { left: 55, top: 230, width: 840, height: 80 },  
+  ghostNum:   { left: 35, top: 120, width: 300, height: 200 }  
+},
+
+footer: {  
+  leftText:  { left: 15, top: 505, width: 250, height: 20 },  
+  rightPage: { right: 15, top: 505, width: 50,  height: 20 }  
+},  
+bottomBar: { left: 0, top: 534, width: 960, height: 6 }  
+
+},
+
+FONTS: {  
+family: 'Arial',  
+sizes: {  
+title: 45,  
+date: 16,  
+sectionTitle: 38,  
+contentTitle: 28,  
+subhead: 18,  
+body: 14,  
+footer: 9,  
+chip: 11,  
+laneTitle: 13,  
+small: 10,  
+processStep: 14,  
+axis: 12,  
+ghostNum: 180  
+}  
+},  
+COLORS: {  
+primary_blue: '#4285F4',  
+google_red: '#EA4335',  
+google_yellow: '#FBBC04',  
+google_green: '#34A853',  
+text_primary: '#333333',  
+background_white: '#FFFFFF',  
+background_gray: '#f8f9fa',  
+faint_gray: '#e8eaed',  
+lane_title_bg: '#f5f5f3',  
+lane_border: '#dadce0',  
+card_bg: '#ffffff',  
+card_border: '#dadce0',  
+neutral_gray: '#9e9e9e',  
+ghost_gray: '#efefed'  
+},  
+DIAGRAM: {  
+laneGap_px: 24, lanePad_px: 10, laneTitle_h_px: 30,  
+cardGap_px: 12, cardMin_h_px: 48, cardMax_h_px: 70,  
+arrow_h_px: 10, arrowGap_px: 8  
+},
+
+LOGOS: {  
+header: '[https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1024px-Google_2015_logo.svg.png](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1024px-Google_2015_logo.svg.png)',  
+closing: '[https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1024px-Google_2015_logo.svg.png](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1024px-Google_2015_logo.svg.png)'  
+},
+
+FOOTER_TEXT: `© ${new Date().getFullYear()} Your Organization`  
+};
+
+
+// === 3. テーマ抽象化API ===
+// --- テーマ抽象化レイヤー ---
+// style.gsのCONFIGとslide.gsの間の抽象化層
+
+/**
+ * テーマAPI - slide.gsはこのAPIのみを使用
+ * CONFIGの詳細を隠蔽し、意味的なインターフェースを提供
+ */
+const Theme = {
+  // 色取得
+  getColor: (semantic) => {
+    const colorMap = {
+      'primary': CONFIG.COLORS.primary_blue,
+      'background': CONFIG.COLORS.background_white,
+      'backgroundAlt': CONFIG.COLORS.background_gray,
+      'text': CONFIG.COLORS.text_primary,
+      'textSecondary': CONFIG.COLORS.neutral_gray,
+      'success': CONFIG.COLORS.google_green,
+      'warning': CONFIG.COLORS.google_yellow,
+      'error': CONFIG.COLORS.google_red,
+      'border': CONFIG.COLORS.lane_border,
+      'cardBg': CONFIG.COLORS.card_bg,
+      'cardBorder': CONFIG.COLORS.card_border,
+      'faint': CONFIG.COLORS.faint_gray,
+      'ghost': CONFIG.COLORS.ghost_gray
+    };
+    return colorMap[semantic] || CONFIG.COLORS.text_primary;
+  },
+
+  // フォントサイズ取得
+  getFontSize: (semantic) => {
+    const sizeMap = {
+      'title': CONFIG.FONTS.sizes.title,
+      'sectionTitle': CONFIG.FONTS.sizes.sectionTitle,
+      'contentTitle': CONFIG.FONTS.sizes.contentTitle,
+      'subhead': CONFIG.FONTS.sizes.subhead,
+      'body': CONFIG.FONTS.sizes.body,
+      'small': CONFIG.FONTS.sizes.small,
+      'footer': CONFIG.FONTS.sizes.footer,
+      'processStep': CONFIG.FONTS.sizes.processStep,
+      'laneTitle': CONFIG.FONTS.sizes.laneTitle,
+      'ghostNum': CONFIG.FONTS.sizes.ghostNum
+    };
+    return sizeMap[semantic] || CONFIG.FONTS.sizes.body;
+  },
+
+  // フォントファミリー
+  getFontFamily: () => CONFIG.FONTS.family,
+
+  // ロゴURL取得
+  getLogo: (type) => {
+    const logoMap = {
+      'header': CONFIG.LOGOS.header,
+      'closing': CONFIG.LOGOS.closing
+    };
+    return logoMap[type] || CONFIG.LOGOS.header;
+  },
+
+  // レイアウト取得（layoutManagerに委譲）
+  getLayout: (pageW_pt, pageH_pt) => {
+    return createLayoutManager(pageW_pt, pageH_pt);
+  },
+
+  // 図表スタイル取得
+  getDiagramStyle: () => ({
+    laneGap: CONFIG.DIAGRAM.laneGap_px,
+    lanePad: CONFIG.DIAGRAM.lanePad_px,
+    laneTitleH: CONFIG.DIAGRAM.laneTitle_h_px,
+    cardGap: CONFIG.DIAGRAM.cardGap_px,
+    cardMinH: CONFIG.DIAGRAM.cardMin_h_px,
+    cardMaxH: CONFIG.DIAGRAM.cardMax_h_px,
+    arrowH: CONFIG.DIAGRAM.arrow_h_px,
+    arrowGap: CONFIG.DIAGRAM.arrowGap_px
+  }),
+
+  // フッターテキスト
+  getFooterText: () => CONFIG.FOOTER_TEXT,
+
+  // 基準サイズ
+  getBaseSize: () => CONFIG.BASE_PX
+};
+
+/**
+ * レイアウトマネージャー作成（既存のcreateLayoutManager関数を移動）
+ */
+function createLayoutManager(pageW_pt, pageH_pt) {
+  const pxToPt = (px) => px * 0.75;
+  const baseW_pt = pxToPt(CONFIG.BASE_PX.W);
+  const baseH_pt = pxToPt(CONFIG.BASE_PX.H);
+  const scaleX = pageW_pt / baseW_pt;
+  const scaleY = pageH_pt / baseH_pt;
+
+  const getPositionFromPath = (path) => path.split('.').reduce((obj, key) => obj[key], CONFIG.POS_PX);
+  return {
+    scaleX, scaleY, pageW_pt, pageH_pt, pxToPt,
+    getRect: (spec) => {
+      const pos = typeof spec === 'string' ? getPositionFromPath(spec) : spec;
+      let left_px = pos.left;
+      if (pos.right !== undefined && pos.left === undefined) {
+        left_px = CONFIG.BASE_PX.W - pos.right - pos.width;
+      }
+      return {
+        left:   left_px !== undefined ? pxToPt(left_px) * scaleX : undefined,
+        top:    pos.top !== undefined ? pxToPt(pos.top) * scaleY : undefined,
+        width:  pos.width !== undefined ? pxToPt(pos.width) * scaleX : undefined,
+        height: pos.height !== undefined ? pxToPt(pos.height) * scaleY : undefined,
+      };
+    }
+  };
+}
+
+// === 4. スライドデータ ===
+// --- 3. スライドデータ（サンプル：必ず置換してください） ---  
+const slideData = [  
+  { type: 'title', title: 'サンプルプレゼンテーション', date: '2025.08.12', notes: '本日はお集まりいただきありがとうございます。このプレゼンテーションは、Google風デザインテンプレートの機能と可能性についてご説明するものです。' },  
+  { type: 'section', title: '1. はじめに', notes: '最初のセクションでは、このテンプレートが持つ主要な表現パターンについて概観します。' },  
+  { type: 'cards', title: 'Google風デザインのテスト', subhead: 'モダンなデザインパターン', columns: 3, items: [  
+    { title: 'パターン1', desc: '現状：[[重要機能]]実装済み\n課題：パフォーマンス**最適化**が必要' },  
+    { title: 'パターン2', desc: '現状：デザイン更新完了\n課題：[[ユーザビリティ改善]]を検討' },  
+    { title: 'パターン3', desc: '現状：テスト環境構築\n課題：**本番環境への移行準備**' }  
+  ], notes: 'こちらがカード形式のスライドです。3つの異なる項目を並べて比較検討する際に便利です。それぞれのカードにはタイトルと説明を設定できます。' },  
+  { type: 'closing', notes: '以上で説明を終わります。ご清聴ありがとうございました。何かご質問はありますでしょうか。' }  
+];
+
+// === 5. スライド生成ロジック ===
 /**  
  * @OnlyCurrentDoc  
  * このスクリプトは、Google風デザインテンプレートに基づきGoogleスライドを自動生成します。  
