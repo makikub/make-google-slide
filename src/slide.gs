@@ -1,13 +1,4 @@
-/**  
- * @OnlyCurrentDoc  
- * このスクリプトは、Google風デザインテンプレートに基づきGoogleスライドを自動生成します。  
- * Version: 12.0 (Universal Google Design - Final)  
- * Author: Googleスライド自動生成マスター
- * Prompt Design: まじん式プロンプト  
- * Description: 指定されたslideData配列を元に、Google風デザインに準拠したスライドを生成します。  
- */
-
-// --- 4. メイン実行関数 ---  
+// --- ３. メイン実行関数 ---  
 let __SECTION_COUNTER = 0; // 章番号カウンタ（ゴースト数字用）
 
 function generatePresentation() {  

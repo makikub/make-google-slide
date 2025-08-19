@@ -50,16 +50,16 @@ echo "// === 3. テーマ抽象化API ===" >> "$OUTPUT_FILE"
 cat "$SOURCE_DIR/theme.gs" >> "$OUTPUT_FILE"
 echo -e "\n" >> "$OUTPUT_FILE"
 
-# 4. スライドデータ
-echo "   ✅ text-data.gs (サンプルデータ)"
-echo "// === 4. スライドデータ ===" >> "$OUTPUT_FILE"
-cat "$SOURCE_DIR/text-data.gs" >> "$OUTPUT_FILE"
+# 4. メイン実行ロジック
+echo "   ✅ slide.gs (スライド生成ロジック)"
+echo "// === 4. スライド生成ロジック ===" >> "$OUTPUT_FILE"
+cat "$SOURCE_DIR/slide.gs" >> "$OUTPUT_FILE"
 echo -e "\n" >> "$OUTPUT_FILE"
 
-# 5. メイン実行ロジック
-echo "   ✅ slide.gs (スライド生成ロジック)"
-echo "// === 5. スライド生成ロジック ===" >> "$OUTPUT_FILE"
-cat "$SOURCE_DIR/slide.gs" >> "$OUTPUT_FILE"
+# 5. スライドデータ（最後に配置）
+echo "   ✅ text-data.gs (サンプルデータ)"
+echo "// === 5. スライドデータ ===" >> "$OUTPUT_FILE"
+cat "$SOURCE_DIR/text-data.gs" >> "$OUTPUT_FILE"
 
 echo ""
 echo "✨ ビルド完了!"
